@@ -1,6 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Products from "../views/Products.vue";
+import Orders from "../views/Orders.vue";
+import deliveryboys from "../views/deliveryboys.vue";
+import categories from "../views/categories.vue";
+import login from "../views/login.vue";
+
 
 Vue.use(VueRouter)
 
@@ -8,7 +14,36 @@ Vue.use(VueRouter)
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    children:[
+      {
+        path: "deliveryboys",
+        name: "deliveryboys",
+        component: deliveryboys
+      },
+      {
+        path: "categories",
+        name: "categories",
+        component: categories
+      },
+      {
+        path: "products",
+        name: "products",
+        component: Products
+      },
+      {
+        path: "orders",
+        name: "orders",
+        component: Orders
+      }
+
+
+    ]
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: login
   },
   {
     path: '/about',
