@@ -103,18 +103,26 @@
 
 <script>
 // @ is an alias to /src
-import {fb} from '../firebase';
+import {fb,db} from '../firebase';
 
 export default {
   name: "admin",
   data(){
       return{
+          profile:"",
           name:null,
           email:null,
       }
   },
 //   components: {
 //     Hero
+//   },
+//  firestore(){
+//      const user = fb.auth().currentUser;
+
+//       return {
+//          profile: db.collection('profiles').doc(user.uid),
+//       }
 //   },
   methods:{
       closeMenu(){
@@ -130,16 +138,27 @@ export default {
           });
       }
   },
-
   created(){
+       
       let user = fb.auth().currentUser;
         if (user) {
-     console.log(user)
+     console.log(user.uid)
+     db.collection("profiles").doc(user.uid).get().then((doc)=> {
+    if (doc.exists) {
+        this.profile=doc.data();
+        if(this.profile.type=="customer"){
+            this.$router.push('/login') 
+        }
+    }
+        }).catch(function(error) {
+          console.log("Error getting document:", error);
+            });
       this.email = user.email;
         } else {
              this.$router.push('/login')  
         }
-
+         
+     
    
 
   }

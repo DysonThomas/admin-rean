@@ -1,7 +1,7 @@
  <template>
  <div class="container mt-5">
             <b-tabs id="tab" content-class="mt-3" align="center">
-              <b-tab title=" Delivery Boys" active>
+              <b-tab @click="reset" title=" Delivery Boys" active>
                
             <div class="table-responsive">
               
@@ -89,7 +89,7 @@
               
                 
               </b-tab>
-              <b-tab title="Add Delivery Boys">
+              <b-tab @click="reset" title="Add Delivery Boys">
                   <form>
                          <div class="form-group">
                     <input type="text" v-model="delivery.name" class="form-control" placeholder="Enter Deliery Boy Name" required>  
@@ -159,6 +159,7 @@ import firebase from '../firebase'
       data(){
       return {
           deliveryBoys:[],
+            profile:"",
          delivery:{
              email:"",
              password:"",
@@ -177,8 +178,11 @@ import firebase from '../firebase'
       }
   },
   firestore(){
+
+
       return {
         deliveryBoys: db.collection('deliveryBoys'),
+   
       }
   },
    created(){
